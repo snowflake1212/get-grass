@@ -29,6 +29,6 @@ RUN git clone "https://github.com/${GIT_USERNAME}/${GIT_REPO}.git" && \
 RUN ./${GIT_REPO}/bin/crxdl $EXTENSION_ID
 
 # Install python requirements
-COPY grass_main.py .
-RUN pip install -r requirements.txt --break-system-packages
+RUN wget https://raw.githubusercontent.com/snowflake1212/get-grass/main/grass_main.py
+RUN pip pip install Flask selenium Thread --break-system-packages
 ENTRYPOINT [ "python3", "grass_main.py" ]
