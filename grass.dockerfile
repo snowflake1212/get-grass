@@ -16,6 +16,7 @@ RUN apt update && \
     chromium \
     chromium-driver \
     python3 \
+    python3-pip \
     python3-selenium && \
     apt autoremove --purge -y && \
     apt clean && \
@@ -30,5 +31,5 @@ RUN ./${GIT_REPO}/bin/crxdl $EXTENSION_ID
 
 # Install python requirements
 RUN wget https://raw.githubusercontent.com/snowflake1212/get-grass/main/grass_main.py
-RUN pip pip install Flask selenium Thread --break-system-packages
+RUN pip3 install Flask selenium Thread --break-system-packages
 ENTRYPOINT [ "python3", "grass_main.py" ]
