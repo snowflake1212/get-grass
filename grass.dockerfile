@@ -30,5 +30,5 @@ RUN ./${GIT_REPO}/bin/crxdl $EXTENSION_ID
 
 # Install python requirements
 COPY grass_main.py .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --break-system-packages
 ENTRYPOINT [ "python3", "grass_main.py" ]
