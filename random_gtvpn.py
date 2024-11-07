@@ -87,13 +87,15 @@ for server in supported:
 
 # Menghapus semua file yang cocok dengan pola '219.*.ovpn' di folder 'ovpn'
 pattern = re.compile(r"^(219|221)\..*\.ovpn$")
+special_file = '223.134.156.41.ovpn'
+
 for file_path in glob.glob('ovpn/*.ovpn'):
     file_name = os.path.basename(file_path)
-    if pattern.match(file_name):
+    
+    # Cek apakah file cocok dengan pola regex atau nama file khusus
+    if pattern.match(file_name) or file_name == special_file:
         os.remove(file_path)
         print(f"Deleted {file_path} before starting connections.")
-
-print("Cleanup complete.")
 
 # Mengambil daftar file .ovpn untuk koneksi acak
 ovpn_files = glob.glob('ovpn/*.ovpn')
