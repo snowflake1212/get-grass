@@ -92,7 +92,7 @@ special_file = '106.150.249.101.ovpn'
 special_file = '106.150.249.101.ovpn'
 special_file = '202.239.243.53.ovpn'
 special_file = '202.239.243.53.ovpn'
-
+special_file = '175.126.110.226.ovpn'
 for file_path in glob.glob('ovpn/*.ovpn'):
     file_name = os.path.basename(file_path)
     
