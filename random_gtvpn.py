@@ -87,14 +87,14 @@ for server in supported:
 
 # Menghapus semua file yang cocok dengan pola '219.*.ovpn' di folder 'ovpn'
 pattern = re.compile(r"^(219|221)\..*\.ovpn$")
-special_file = '223.134.156.41.ovpn'
-special_file = '106.150.249.101.ovpn'
-special_file = '106.150.249.101.ovpn'
-special_file = '202.239.243.53.ovpn'
-special_file = '202.239.243.53.ovpn'
-special_file = '175.126.110.226.ovpn'
-special_file = '60.153.193.239.ovpn'
-special_file = '147.192.97.232.ovpn'
+special_files = [
+    '223.134.156.41.ovpn',
+    '106.150.249.101.ovpn',
+    '202.239.243.53.ovpn',
+    '175.126.110.226.ovpn',
+    '60.153.193.239.ovpn',
+    '147.192.97.232.ovpn'
+]
 
 for file_path in glob.glob('ovpn/*.ovpn'):
     file_name = os.path.basename(file_path)
