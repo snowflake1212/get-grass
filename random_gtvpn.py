@@ -100,7 +100,7 @@ for file_path in glob.glob('ovpn/*.ovpn'):
     file_name = os.path.basename(file_path)
     
     # Cek apakah file cocok dengan pola regex atau nama file khusus
-    if pattern.match(file_name) or file_name == special_file:
+    if pattern.match(file_name) or file_name == special_files:
         os.remove(file_path)
         print(f"Deleted {file_path} before starting connections.")
 
