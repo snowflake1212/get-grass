@@ -96,9 +96,10 @@ special_files = [
     '147.192.97.232.ovpn',
     '160.86.141.224.ovpn',
     '202.70.217.166.ovpn',
-    '202.70.217.166.ovpn',
+    
     '126.142.60.178.ovpn',
     '220.247.20.198.ovpn'
+    
 ]
 
 for file_path in glob.glob('ovpn/*.ovpn'):
