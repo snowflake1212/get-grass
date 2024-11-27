@@ -15,7 +15,7 @@ MAX_RETRY_LIMIT = 1  # Batas percobaan koneksi ke setiap server
 CONNECTION_TIMEOUT = 10  # Timeout untuk requests.get dalam detik
 VPN_CONNECTION_TIMEOUT = 10  # Timeout koneksi untuk memastikan stabilitas
 CHECK_IP_TIMEOUT = 5  # Timeout untuk mengecek IP setelah terhubung ke VPN
-HAPUS_IPS = ["98.255.24.4", "89.185.68.16", "58.232.181.70", "85.117.235.136", "85.117.235.136", "64.181.249.5", "121.183.190.52", "60.71.59.132", "126.142.60.178", "219.100.37.244", "106.150.249.101", "192.3.3.153", "64.181.249.5", "126.142.60.178", "126.22.21.173", "111.217.191.8", "133.175.28.203"]  # IP default yang harus dicek setiap 5 menit
+HAPUS_IPS = ["64.181.249.5", "98.255.24.4", "89.185.68.16", "58.232.181.70", "85.117.235.136", "85.117.235.136", "121.183.190.52", "60.71.59.132", "126.142.60.178", "219.100.37.244", "106.150.249.101", "192.3.3.153", "64.181.249.5", "126.142.60.178", "126.22.21.173", "111.217.191.8", "133.175.28.203"] # IP default yang harus dicek setiap 5 menit
 LOG_FILE = '/home/python/log_ovpn.txt'  # Lokasi file log di host
 
 # Mengecek argumen input untuk menerima lebih dari satu negara
@@ -24,18 +24,29 @@ if len(sys.argv) < 2:
     exit(1)
 countries = sys.argv[1:]
 
-# Mengambil data dari VPNGate API dengan penanganan timeout
-try:
-    vpn_data = requests.get('http://www.vpngate.net/api/iphone/', timeout=CONNECTION_TIMEOUT).text.replace('\r', '')
-    servers = [line.split(',') for line in vpn_data.split('\n') if len(line.split(',')) > 1]
-    labels = servers[1]
-    labels[0] = labels[0][1:]
-    servers = servers[2:]
-except requests.exceptions.Timeout:
-    print("Request to VPNGate API timed out.")
-    exit(1)
-except Exception as e:
-    print(f"Error fetching VPN servers data: {e}")
+# Mengambil data dari VPNGate API dengan mekanisme retry
+MAX_RETRY_API = 3  # Jumlah maksimal percobaan ke API VPNGate
+retry_count = 0
+
+while retry_count < MAX_RETRY_API:
+    try:
+        print(f"Fetching VPNGate API data (Attempt {retry_count + 1}/{MAX_RETRY_API})...")
+        vpn_data = requests.get('http://www.vpngate.net/api/iphone/', timeout=CONNECTION_TIMEOUT).text.replace('\r', '')
+        servers = [line.split(',') for line in vpn_data.split('\n') if len(line.split(',')) > 1]
+        labels = servers[1]
+        labels[0] = labels[0][1:]
+        servers = servers[2:]
+        print("Successfully fetched VPNGate API data.")
+        break  # Jika berhasil, keluar dari loop
+    except requests.exceptions.Timeout:
+        retry_count += 1
+        print(f"Timeout occurred while fetching VPNGate API data. Retrying {retry_count}/{MAX_RETRY_API}...")
+    except Exception as e:
+        print(f"Error fetching VPN servers data: {e}")
+        exit(1)
+
+if retry_count == MAX_RETRY_API:
+    print("Failed to fetch VPNGate API data after multiple retries.")
     exit(1)
 
 # Menyaring server berdasarkan negara yang dipilih
