@@ -15,7 +15,7 @@ MAX_RETRY_LIMIT = 1  # Batas percobaan koneksi ke setiap server
 CONNECTION_TIMEOUT = 10  # Timeout untuk requests.get dalam detik
 VPN_CONNECTION_TIMEOUT = 10  # Timeout koneksi untuk memastikan stabilitas
 CHECK_IP_TIMEOUT = 5  # Timeout untuk mengecek IP setelah terhubung ke VPN
-HAPUS_IPS = ["64.181.249.5", "120.51.81.14","58.13.169.247", "98.255.24.4", "85.12.212.97", "220.92.119.177", "133.200.255.32", "89.185.68.16", "58.232.181.70", "85.117.235.136", "85.117.235.136", "121.183.190.52", "60.71.59.132", "126.142.60.178", "219.100.37.244", "106.150.249.101", "192.3.3.153", "64.181.249.5", "126.142.60.178", "126.22.21.173", "111.217.191.8", "133.175.28.203"] # IP default yang harus dicek setiap 5 menit
+HAPUS_IPS = ["64.181.249.5", "", "58.123.254.8", "120.51.81.14","58.13.169.247", "98.255.24.4", "85.12.212.97", "220.92.119.177", "133.200.255.32", "89.185.68.16", "58.232.181.70", "85.117.235.136", "85.117.235.136", "121.183.190.52", "60.71.59.132", "126.142.60.178", "219.100.37.244", "106.150.249.101", "192.3.3.153", "64.181.249.5", "126.142.60.178", "126.22.21.173", "111.217.191.8", "133.175.28.203"] # IP default yang harus dicek setiap 5 menit
 LOG_FILE = '/home/python/log_ovpn.txt'  # Lokasi file log di host
 
 # Mengecek argumen input untuk menerima lebih dari satu negara
